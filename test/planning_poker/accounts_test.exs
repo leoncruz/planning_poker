@@ -54,24 +54,30 @@ defmodule PlanningPoker.AccountsTest do
 
       assert %{
                password: ["can't be blank"],
-               email: ["can't be blank"]
+               email: ["can't be blank"],
+               name: ["can't be blank"]
              } = errors_on(changeset)
     end
 
-    test "validates email and password when given" do
-      {:error, changeset} = Accounts.register_user(%{email: "123", password: "123"})
+    test "validates email, password and name when given" do
+      {:error, changeset} = Accounts.register_user(%{email: "123", password: "123", name: "use"})
 
       assert %{
                email: ["must have the @ sign and no spaces"],
-               password: ["should be at least 6 character(s)"]
+               password: ["should be at least 6 character(s)"],
+               name: ["should be at least 4 character(s)"]
              } = errors_on(changeset)
     end
 
     test "validates maximum values for email and password for security" do
       too_long = String.duplicate("db", 100)
-      {:error, changeset} = Accounts.register_user(%{email: too_long, password: too_long})
+
+      {:error, changeset} =
+        Accounts.register_user(%{email: too_long, password: too_long, name: too_long})
+
       assert "should be at most 160 character(s)" in errors_on(changeset).email
       assert "should be at most 72 character(s)" in errors_on(changeset).password
+      assert "should be at most 120 character(s)" in errors_on(changeset).name
     end
 
     test "validates email uniqueness" do
@@ -97,22 +103,24 @@ defmodule PlanningPoker.AccountsTest do
   describe "change_user_registration/2" do
     test "returns a changeset" do
       assert %Ecto.Changeset{} = changeset = Accounts.change_user_registration(%User{})
-      assert changeset.required == [:password, :email]
+      assert changeset.required == [:password, :email, :name]
     end
 
     test "allows fields to be set" do
       email = unique_user_email()
       password = valid_user_password()
+      name = generate_user_name()
 
       changeset =
         Accounts.change_user_registration(
           %User{},
-          valid_user_attributes(email: email, password: password)
+          valid_user_attributes(email: email, password: password, name: name)
         )
 
       assert changeset.valid?
       assert get_change(changeset, :email) == email
       assert get_change(changeset, :password) == password
+      assert get_change(changeset, :name) == name
       assert is_nil(get_change(changeset, :hashed_password))
     end
   end
