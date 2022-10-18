@@ -1,0 +1,13 @@
+<section class="phx-hero">
+  <h1>New Room</h1>
+</section>
+
+<section class="container">
+  <.form let={f} for={@conn} action={Routes.room_path(@conn, :create)} as={:room}>
+    <%= label f, :name %>
+    <%= text_input f, :name %>
+    <%= error_tag f, :name %>
+
+    <%= submit "Submit" %>
+  </.form>
+</section>

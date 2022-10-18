@@ -1,0 +1,25 @@
+<section class="phx-hero">
+  <h1>Rooms</h1>
+
+  <%= link "New Room", to: Routes.room_path(@conn, :new), class: "button" %>
+</section>
+
+<section class="container">
+  <table>
+    <thead>
+      <tr>
+        <th># ID</th>
+        <th>Name</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <%= for room <- @rooms do %>
+        <tr>
+          <td><%= room.id %></td>
+          <td><%= room.name %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</section>
