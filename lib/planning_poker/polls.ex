@@ -21,4 +21,8 @@ defmodule PlanningPoker.Polls do
     |> Room.changeset(attrs)
     |> Repo.insert()
   end
+
+  def get_room(room_id) do
+    Repo.get(Room, room_id)
+  end
 end

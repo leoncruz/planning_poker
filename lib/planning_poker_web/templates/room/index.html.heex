@@ -10,6 +10,7 @@
       <tr>
         <th># ID</th>
         <th>Name</th>
+        <th>Go</th>
       </tr>
     </thead>
 
@@ -18,6 +19,7 @@
         <tr>
           <td><%= room.id %></td>
           <td><%= room.name %></td>
+          <td><%= link "Go", to: Routes.room_path(@conn, :show, room) %></td>
         </tr>
       <% end %>
     </tbody>

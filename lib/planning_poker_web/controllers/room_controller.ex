@@ -37,4 +37,10 @@ defmodule PlanningPokerWeb.RoomController do
         |> render("new.html", room_changeset: changeset)
     end
   end
+
+  def show(conn, %{"id" => room_id}) do
+    room = Polls.get_room(room_id)
+
+    render(conn, "show.html", room: room)
+  end
 end
