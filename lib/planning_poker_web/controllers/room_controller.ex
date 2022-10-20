@@ -13,9 +13,7 @@ defmodule PlanningPokerWeb.RoomController do
   end
 
   def new(conn, _parms) do
-    room_changeset =
-      %Room{}
-      |> Polls.room_changeset()
+    room_changeset = Polls.room_changeset(%Room{})
 
     render(conn, "new.html", room_changeset: room_changeset)
   end
@@ -23,9 +21,7 @@ defmodule PlanningPokerWeb.RoomController do
   def create(conn, %{"room" => room_params}) do
     current_user = conn.assigns.current_user
 
-    changeset = Ecto.build_assoc(current_user, :rooms, room_params)
-
-    case Polls.create_room(changeset, room_params) do
+    case Polls.create_room(current_user, room_params) do
       {:ok, _room} ->
         conn
         |> put_flash(:info, "Room created sucessfuly!")
@@ -33,7 +29,7 @@ defmodule PlanningPokerWeb.RoomController do
 
       {:error, changeset} ->
         conn
-        |> put_flash(:infor, "Room cannot be created")
+        |> put_flash(:error, "Room cannot be created")
         |> render("new.html", room_changeset: changeset)
     end
   end
