@@ -16,9 +16,10 @@ defmodule PlanningPoker.Polls do
     Room.changeset(room, params)
   end
 
-  def create_room(room, attrs) do
-    room
-    |> Room.changeset(attrs)
+  def create_room(current_user, room_attrs) do
+    current_user
+    |> Ecto.build_assoc(:rooms, room_attrs)
+    |> Room.changeset(room_attrs)
     |> Repo.insert()
   end
 

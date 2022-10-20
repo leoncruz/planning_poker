@@ -14,7 +14,7 @@ defmodule PlanningPoker.Polls.Room do
   @doc false
   def changeset(room, attrs \\ %{}) do
     room
-    |> cast(attrs, [:name])
-    |> validate_required([:name])
+    |> cast(attrs, [:name, :user_id])
+    |> validate_required([:name, :user_id])
   end
 end
