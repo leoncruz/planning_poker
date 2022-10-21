@@ -3,10 +3,12 @@ defmodule PlanningPoker.Polls.Room do
   import Ecto.Changeset
 
   alias PlanningPoker.Accounts.User
+  alias PlanningPoker.Polls.Task
 
   schema "rooms" do
     field :name, :string
     belongs_to :user, User
+    has_many(:tasks, Task)
 
     timestamps()
   end
