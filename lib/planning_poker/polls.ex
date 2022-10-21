@@ -1,5 +1,5 @@
 defmodule PlanningPoker.Polls do
-  alias PlanningPoker.Polls.Room
+  alias PlanningPoker.Polls.{Room, Task}
   alias PlanningPoker.Repo
 
   import Ecto.Query
@@ -24,6 +24,23 @@ defmodule PlanningPoker.Polls do
   end
 
   def get_room(room_id) do
-    Repo.get(Room, room_id)
+    query =
+      from r in Room,
+        where: r.id == ^room_id,
+        preload: [:tasks]
+
+    Repo.one(query)
+  end
+
+  def task_changeset(room_id, params \\ %{}) do
+    room_id
+    |> get_room()
+    |> Ecto.build_assoc(:tasks, params)
+    |> Task.changeset(params)
+  end
+
+  def create_task(room_id, params) do
+    task_changeset(room_id, params)
+    |> Repo.insert()
   end
 end

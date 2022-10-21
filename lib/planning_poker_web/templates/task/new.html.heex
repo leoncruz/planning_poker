@@ -1,0 +1,13 @@
+<section class="phx-hero">
+  <h1>New Task</h1>
+</section>
+
+<section class="container">
+  <.form let={f} for={@changeset} action={Routes.room_task_path(@conn, :create, @room_id)} as={:task} %>
+    <%= label f, :identifier %>
+    <%= text_input f, :identifier %>
+    <%= error_tag f, :identifier %>
+
+    <%= submit "Submit" %>
+  </.form>
+</section>

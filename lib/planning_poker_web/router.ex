@@ -79,7 +79,9 @@ defmodule PlanningPokerWeb.Router do
     put "/users/settings", UserSettingsController, :update
     get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
 
-    resources "/rooms", RoomController
+    resources "/rooms", RoomController do
+      resources "/tasks", TaskController, only: [:new, :create]
+    end
   end
 
   scope "/", PlanningPokerWeb do
