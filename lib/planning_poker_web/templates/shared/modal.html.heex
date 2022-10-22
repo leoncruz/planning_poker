@@ -1,0 +1,13 @@
+<div class="modal" id={@id}>
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head has-background-white">
+      <p class="modal-card-title"><%= assigns[:title] %></p>
+      <button class="delete close-modal" aria-label="close"></button>
+    </header>
+
+    <section class="modal-card-body">
+      <%= @inner_content %>
+    </section>
+  </div>
+</div>
