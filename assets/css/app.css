@@ -1,18 +1,17 @@
 /* This file is for your main application CSS */
-@import "./phoenix.css";
 
-.card {
+.poll-card {
   width: 200px;
   height: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 10px;
-  margin-bottom: 10px;
-  font-size: 32px;
-  background-color: lightblue;
-  border: .5px solid blue;
-  box-shadow:  3px 3px #ccc;
+  font-size: 50px;
+  border: 1px solid lightblue;
+}
+
+.poll-card:hover {
+  cursor: pointer;
 }
 
 /* Alerts and form errors used by phx.new */
@@ -45,7 +44,6 @@
 }
 .invalid-feedback {
   color: #a94442;
-  display: block;
   margin: -1rem 0 2rem;
 }
 

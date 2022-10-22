@@ -1,13 +1,26 @@
-<section class="phx-hero">
-  <h1>New Room</h1>
+<section class="hero">
+  <div class="hero-body">
+  <p class="title">New Room</p>
+  </div>
 </section>
 
 <section class="container">
   <.form let={f} for={@room_changeset} action={Routes.room_path(@conn, :create)} as={:room}>
-    <%= label f, :name %>
-    <%= text_input f, :name %>
-    <%= error_tag f, :name %>
+    <div class="columns is-centered">
+      <div class="column is-half">
+        <div class="field">
+          <%= label f, :name, class: "label" %>
+          <div class="control">
+            <%= text_input f, :name, class: "input" %>
 
-    <%= submit "Submit" %>
+            <span class="help">
+              <%= error_tag f, :name %>
+            </span>
+          </div>
+        </div>
+
+        <%= submit "Submit", class: "button is-black" %>
+      </div>
+    </div>
   </.form>
 </section>

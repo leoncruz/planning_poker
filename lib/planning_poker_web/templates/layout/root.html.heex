@@ -14,14 +14,36 @@
   <body>
     <header>
       <section class="container">
-        <nav>
-          <%= render "_user_menu.html", assigns %>
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+          <div class="navbar-menu">
+            <div class="navbar-start">
+              <%= link "Home", to: "/", class: "navbar-item" %>
+
+              <%= if @current_user do %>
+                <%= link "Rooms", to: "/rooms", class: "navbar-item" %>
+              <% end %>
+            </div>
+
+            <div class="navbar-end">
+              <div class="navbar-item">
+                <%= if @current_user do %>
+                  <div class="buttons">
+                    <%= link "Account", to: Routes.user_settings_path(@conn, :edit), class: "button is-black" %>
+                    <%= link "Log out", to: Routes.user_session_path(@conn, :delete), method: :delete, class: "button is-light" %>
+                  </div>
+                <% else %>
+                  <div class="buttons">
+                    <%= link "Register", to: Routes.user_registration_path(@conn, :new), class: "button is-black" %>
+                    <%= link "Log in", to: Routes.user_session_path(@conn, :new), class: "button is-light" %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
         </nav>
-        <a href="https://phoenixframework.org/" class="phx-logo">
-          <img src={Routes.static_path(@conn, "/images/phoenix.png")} alt="Phoenix Framework Logo"/>
-        </a>
       </section>
     </header>
+
     <%= @inner_content %>
   </body>
 </html>

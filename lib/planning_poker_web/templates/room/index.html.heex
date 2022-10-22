@@ -1,29 +1,29 @@
-<section class="phx-hero">
-  <h1>Rooms</h1>
+<section class="hero">
+  <div class="hero-body">
+    <p class="title">Rooms</p>
 
-  <%= link "New Room", to: Routes.room_path(@conn, :new), class: "button" %>
+    <%= link "New Room", to: Routes.room_path(@conn, :new), class: "button" %>
+  </div>
 </section>
 
-<section class="container">
-  <table>
-    <thead>
-      <tr>
-        <th># ID</th>
-        <th>Name</th>
-        <th></th>
-        <th></th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <%= for room <- @rooms do %>
-        <tr>
-          <td><%= room.id %></td>
-          <td><%= room.name %></td>
-          <td><%= link "Go", to: Routes.room_path(@conn, :show, room) %></td>
-          <td><%= link "Delete", to: Routes.room_path(@conn, :delete, room), method: :delete, data: [confirm: "Are you sure?"] %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-half">
+        <table class="table is-fullwidth">
+          <tbody>
+            <%= for room <- @rooms do %>
+              <tr>
+                <td><p class="title is-4"><%= room.name %></p></td>
+                <td><%= link "Go", to: Routes.room_path(@conn, :show, room) %></td>
+                <td>
+                  <%= link "Delete", to: Routes.room_path(@conn, :delete, room), method: :delete, data: [confirm: "Are you sure?"] %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </section>
