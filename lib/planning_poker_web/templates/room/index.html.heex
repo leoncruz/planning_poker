@@ -2,9 +2,11 @@
   <div class="hero-body">
     <p class="title">Rooms</p>
 
-    <%= link "New Room", to: Routes.room_path(@conn, :new), class: "button" %>
+    <%= link "New Room", to: "#", class: "button open-modal", data: [target: "new-room"] %>
   </div>
 </section>
+
+<%= render "new.html", conn: @conn %>
 
 <section class="section">
   <div class="container">

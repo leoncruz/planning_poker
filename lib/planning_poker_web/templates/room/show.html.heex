@@ -2,9 +2,11 @@
   <div class="hero-body">
     <p class="title"><%= @room.name %></p>
 
-    <%= link "add a task", to: Routes.room_task_path(@conn, :new, @room), class: "button" %>
+    <%= link "Add a task", to: "#", class: "button open-modal", data: [target: "new-task"] %>
   </div>
 </section>
+
+<%= render "new_task.html", conn: @conn, room: @room %>
 
 <div class="container">
   <div class="columns">

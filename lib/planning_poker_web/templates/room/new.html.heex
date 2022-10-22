@@ -1,26 +1,18 @@
-<section class="hero">
-  <div class="hero-body">
-  <p class="title">New Room</p>
-  </div>
-</section>
+<%= PlanningPokerWeb.SharedView.modal %{id: "new-room", title: "New Room", action: "New Room" } do %>
+  <section class="container">
+    <.form let={f} for={@conn} action={Routes.room_path(@conn, :create)} as={:room}>
+      <div class="field">
+        <%= label f, :name, class: "label" %>
 
-<section class="container">
-  <.form let={f} for={@room_changeset} action={Routes.room_path(@conn, :create)} as={:room}>
-    <div class="columns is-centered">
-      <div class="column is-half">
-        <div class="field">
-          <%= label f, :name, class: "label" %>
-          <div class="control">
-            <%= text_input f, :name, class: "input" %>
-
-            <span class="help">
-              <%= error_tag f, :name %>
-            </span>
-          </div>
+        <div class="control">
+          <%= text_input f, :name, class: "input" %>
+          <span class="help">
+            <%= error_tag f, :name %>
+          </span>
         </div>
 
         <%= submit "Submit", class: "button is-black" %>
       </div>
-    </div>
-  </.form>
-</section>
+    </.form>
+  </section>
+<% end %>

@@ -1,0 +1,18 @@
+<%= PlanningPokerWeb.SharedView.modal %{id: "new-task", title: "New Task", action: "New Task"} do %>
+  <section class="container">
+    <.form let={f} for={@conn} action={Routes.room_task_path(@conn, :create, @room)} as={:task}>
+      <div class="field">
+        <%= label f, :identifier, class: "label" %>
+
+        <div class="control">
+          <%= text_input f, :identifier, class: "input" %>
+          <span class="help">
+            <%= error_tag f, :identifier %>
+          </span>
+        </div>
+
+        <%= submit "Submit", class: "button is-black" %>
+      </div>
+    </.form>
+  </section>
+<% end %>
