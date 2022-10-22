@@ -32,6 +32,12 @@ defmodule PlanningPoker.Polls do
     Repo.one(query)
   end
 
+  def delete_room(room_id) do
+    query = from r in Room, where: r.id == ^room_id
+
+    Repo.delete_all(query)
+  end
+
   def task_changeset(room_id, params \\ %{}) do
     room_id
     |> get_room()

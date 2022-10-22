@@ -70,4 +70,13 @@ defmodule PlanningPoker.PollsTest do
       refute room2 == Polls.get_room(room1.id)
     end
   end
+
+  describe "delete_room/1" do
+    test "deletes the room with informed id" do
+      room = room_fixture()
+
+      assert {1, _} = Polls.delete_room(room.id)
+      assert nil == Polls.get_room(room.id)
+    end
+  end
 end

@@ -39,4 +39,18 @@ defmodule PlanningPokerWeb.RoomController do
 
     render(conn, "show.html", room: room)
   end
+
+  def delete(conn, %{"id" => room_id}) do
+    case Polls.delete_room(room_id) do
+      {1, _} ->
+        conn
+        |> put_flash(:info, "Room deleted sucessfuly")
+        |> redirect(to: Routes.room_path(conn, :index))
+
+      _ ->
+        conn
+        |> put_flash(:error, "Room cannot be deleted")
+        |> redirect(to: Routes.room_path(conn, :index))
+    end
+  end
 end
