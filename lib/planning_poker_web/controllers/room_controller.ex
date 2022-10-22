@@ -28,9 +28,11 @@ defmodule PlanningPokerWeb.RoomController do
         |> redirect(to: Routes.room_path(conn, :index))
 
       {:error, changeset} ->
+        rooms = Polls.list_rooms_by_user(current_user.id)
+
         conn
         |> put_flash(:error, "Room cannot be created")
-        |> render("new.html", room_changeset: changeset)
+        |> render("index.html", room_changeset: changeset, rooms: rooms)
     end
   end
 
@@ -51,6 +53,22 @@ defmodule PlanningPokerWeb.RoomController do
         conn
         |> put_flash(:error, "Room cannot be deleted")
         |> redirect(to: Routes.room_path(conn, :index))
+    end
+  end
+
+  def create_task(conn, %{"room_id" => room_id, "task" => task_params}) do
+    case Polls.create_task(room_id, task_params) do
+      {:ok, %Polls.Task{} = task} ->
+        conn
+        |> put_flash(:info, "Task #{task.identifier} created successfully")
+        |> redirect(to: Routes.room_path(conn, :show, room_id))
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        room = Polls.get_room(room_id)
+
+        conn
+        |> put_flash(:error, "Task cannot be created")
+        |> render("show.html", changeset: changeset, room: room)
     end
   end
 end

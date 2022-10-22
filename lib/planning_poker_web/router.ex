@@ -80,7 +80,7 @@ defmodule PlanningPokerWeb.Router do
     get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
 
     resources "/rooms", RoomController do
-      resources "/tasks", TaskController, only: [:new, :create]
+      post "/task", RoomController, :create_task, as: :create_task
     end
   end
 

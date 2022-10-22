@@ -1,6 +1,6 @@
 <%= PlanningPokerWeb.SharedView.modal %{id: "new-task", title: "New Task", action: "New Task"} do %>
   <section class="container">
-    <.form let={f} for={@conn} action={Routes.room_task_path(@conn, :create, @room)} as={:task}>
+    <.form let={f} for={@conn} action={Routes.room_create_task_path(@conn, :create_task, @room)} as={:task}>
       <div class="field">
         <%= label f, :identifier, class: "label" %>
 
