@@ -2,8 +2,9 @@ defmodule PlanningPokerWeb.RoomChannel do
   use PlanningPokerWeb, :channel
 
   @impl true
-  def join("room:lobby", payload, socket) do
+  def join("room:" <> room_id, payload, socket) do
     if authorized?(payload) do
+      send(self(), {:after_join, room_id})
       {:ok, socket}
     else
       {:error, %{reason: "unauthorized"}}
@@ -25,8 +26,21 @@ defmodule PlanningPokerWeb.RoomChannel do
     {:noreply, socket}
   end
 
+  @impl true
+  def handle_in("poll", _payload, socket) do
+    broadcast(socket, "poll", %{"body" => "voted"})
+    {:noreply, socket}
+  end
+
   # Add authorization logic here as required.
   defp authorized?(_payload) do
     true
+  end
+
+  @impl true
+  def handle_info({:after_join, room_id}, socket) do
+    user_id = socket.assigns.user
+    broadcast(socket, "room:#{room_id}", %{"body" => "user #{user_id} joined"})
+    {:noreply, socket}
   end
 end

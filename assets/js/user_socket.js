@@ -56,9 +56,45 @@ socket.connect()
 // Now that you are connected, you can join channels with a topic.
 // Let's assume you have a channel with a topic named `room` and the
 // subtopic is its id - in this case 42:
-let channel = socket.channel("room:lobby", {})
+const roomId = window.roomId;
+
+let channel = socket.channel(`room:${roomId}`, {})
+
 channel.join()
-  .receive("ok", resp => { console.log("Joined successfully", resp) })
-  .receive("error", resp => { console.log("Unable to join", resp) })
+
+channel.on(`room:${roomId}`, (data) => {
+  console.log(data)
+});
+
+channel.on("poll", (data) => {
+  console.log(data); 
+});
+
+(document.querySelectorAll('.poll-card') || []).forEach((elem) => {
+  elem.addEventListener('click', () => {
+    sendPollValue(elem);
+    markAsSelected(elem);
+  });
+});
+
+function sendPollValue(elem) {
+  const value = elem.dataset.value;
+  channel.push("poll", { value });
+}
+
+function markAsSelected(elem) {
+  const pollCards = elem.closest('.poll-values');
+
+  const currentSelectedCard = 
+    pollCards.getElementsByClassName('has-background-black')[0];
+
+  if(currentSelectedCard) {
+    currentSelectedCard.classList.remove('has-background-black');
+    currentSelectedCard.classList.remove('has-text-white');
+  }
+
+  elem.classList.add('has-background-black');
+  elem.classList.add('has-text-white');
+}
 
 export default socket

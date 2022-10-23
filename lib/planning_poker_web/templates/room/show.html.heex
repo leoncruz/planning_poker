@@ -19,7 +19,7 @@
         </p>
       <% end %>
     </div>
-    <div class="column is-8">
+    <div class="column is-8 poll-values">
       <div class="columns">
         <div class="column">
           <%= card 1 %>
@@ -56,3 +56,6 @@
     </div>
   </div>
 </div>
+<script>
+  window.roomId = "<%= @room.id %>";
+</script>
