@@ -13,13 +13,32 @@
     <div class="column is-2 has-text-centered">
       <p class="title is-4">Tasks</p>
 
-      <%= for task <- @room.tasks do %>
+      <%= for task <- @other_tasks do %>
         <p>
           <%= task.identifier %>
         </p>
       <% end %>
     </div>
     <div class="column is-8 poll-values">
+      <div class="columns is-centered has-text-centered">
+        <div class="column">
+          <%= link to: "#" do %>
+            <span class="material-symbols-outlined">
+            chevron_left
+            </span>
+          <% end %>
+        </div>
+        <div class="column">
+          <p class="title is-4"><%= @current_task.identifier %></p>
+        </div>
+        <div class="column">
+          <%= link to: "#" do %>
+            <span class="material-symbols-outlined">
+            chevron_right
+            </span>
+          <% end %>
+        </div>
+      </div>
       <div class="columns">
         <div class="column">
           <%= card 1 %>
@@ -52,6 +71,26 @@
         <div class="column">
           <%= card 55 %>
         </div>
+      </div>
+    </div>
+    <div class="column is-2">
+      <div class="is-flex is-align-items-center is-justify-content-center play-button">
+        <span class="material-symbols-outlined" style="font-size: 50px">
+          play_circle
+        </span>
+        <span class="ml-4">Start</span>
+      </div>
+      <div class="mt-6">
+        <%= for user <- @users do %>
+          <div class="is-flex is-align-items-center is-justify-content-start mb-4">
+            <span class="material-symbols-outlined" style="font-size: 50px;">
+              account_circle
+            </span>
+            <span class="ml-4">
+              <%= user.name %>
+            </span>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>

@@ -38,8 +38,15 @@ defmodule PlanningPokerWeb.RoomController do
 
   def show(conn, %{"id" => room_id}) do
     room = Polls.get_room(room_id)
+    [current_task | other_tasks] = room.tasks
+    users = Polls.get_users()
 
-    render(conn, "show.html", room: room)
+    render(conn, "show.html",
+      room: room,
+      current_task: current_task,
+      other_tasks: other_tasks,
+      users: users
+    )
   end
 
   def delete(conn, %{"id" => room_id}) do

@@ -1,6 +1,7 @@
 defmodule PlanningPoker.Polls do
   alias PlanningPoker.Polls.{Room, Task}
   alias PlanningPoker.Repo
+  alias PlanningPoker.Accounts.User
 
   import Ecto.Query
 
@@ -48,5 +49,9 @@ defmodule PlanningPoker.Polls do
   def create_task(room_id, params) do
     task_changeset(room_id, params)
     |> Repo.insert()
+  end
+
+  def get_users do
+    Repo.all(User)
   end
 end
